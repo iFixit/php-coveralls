@@ -22,6 +22,13 @@ class SourceFile extends Coveralls
      * @var string
      */
     protected $source;
+    
+    /**
+     * Source digest of the content.
+     *
+     * @var string
+     */
+    protected $sourceDigest;
 
     /**
      * Coverage data of the source file.
@@ -63,6 +70,7 @@ class SourceFile extends Coveralls
         $this->path = $path;
         $this->name = $name;
         $this->source = trim(file_get_contents($path));
+        $this->sourceDigest = md5($this->source);
 
         $lines = explode($eol, $this->source);
         $this->fileLines = count($lines);
@@ -78,7 +86,7 @@ class SourceFile extends Coveralls
     {
         return [
             'name' => $this->name,
-            'source' => $this->source,
+            'source_digest' => $this->sourceDigest,
             'coverage' => $this->coverage,
         ];
     }
