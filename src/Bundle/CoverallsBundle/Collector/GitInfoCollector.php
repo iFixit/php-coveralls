@@ -40,7 +40,7 @@ class GitInfoCollector
      */
     public function collect()
     {
-        $branch = $this->collectBranch();
+        $branch = getenv('OVERRIDE_BRANCH') ?: $this->collectBranch();
         $commit = $this->collectCommit();
         $remotes = $this->collectRemotes();
 
