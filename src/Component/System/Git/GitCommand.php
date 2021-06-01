@@ -39,6 +39,9 @@ class GitCommand
      */
     public function getHeadCommit()
     {
+        if ($overrideCommit = getenv('OVERRIDE_COMMIT')) {
+            return $this->executor->execute("git show {$overrideCommit} --pretty=format:'%H%n%aN%n%ae%n%cN%n%ce%n%s' --no-patch");
+        }
         return $this->executor->execute("git log -1 --pretty=format:'%H%n%aN%n%ae%n%cN%n%ce%n%s'");
     }
 
